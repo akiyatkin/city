@@ -1,0 +1,6 @@
+{
+	"name":"akiyatkin/city",
+	"require":{
+		"infrajs/region":"~1"
+	}
+}

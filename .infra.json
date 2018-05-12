@@ -1,0 +1,4 @@
+{
+	"dependencies":["controller","event"],
+	"js":"City.js"
+}

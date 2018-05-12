@@ -1,0 +1,6 @@
+{
+	"global":"user",
+	"tpl":"-city/city.tpl",
+	"autosavename":"user",
+	"tplroot":"CITY"
+}
