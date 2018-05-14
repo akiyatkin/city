@@ -1,4 +1,12 @@
 {
+	"pub":["list"],
 	"dependencies":["controller","event"],
-	"js":"City.js"
+	"js":"City.js",
+	"def":"Samara",
+	"list":["Samara","Toliatty"],
+	"require":"infra.php",
+	"lang":{
+    	"def":"ru",
+    	"list":["en","ru"]
+    }
 }

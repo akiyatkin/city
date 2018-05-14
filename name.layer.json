@@ -1,6 +1,5 @@
 {
-	"global":"user",
 	"tpl":"-city/city.tpl",
-	"autosavename":"user",
+	"parsedtpl":"{Env.name()}",
 	"tplroot":"CITY"
 }

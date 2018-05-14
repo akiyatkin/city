@@ -9,4 +9,4 @@
 		<div id="citydescr"></div>
 		<div id="citychoicesel"></div>
 	</div>
-{CITY:}<span class="autosaveblock" name="city">Тольятти</span>
+{CITY:}<span class="a" onclick="domready( function () { City.show() });">{Lang.str(:city,Env.get().city)}</span>
