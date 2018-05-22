@@ -8,7 +8,10 @@ use infrajs\event\Events;
 
 Env::add('city', function () {
 	//FRONT-функция
-	$data = IP::get($_SERVER['REMOTE_ADDR'], 'en');//BACK-функция без параметров вернёт английский вариант
+	//$ip = '62.106.100.30';
+	$ip = $_SERVER['REMOTE_ADDR'];
+	$data = IP::get($ip, 'en');//BACK-функция без параметров вернёт английский вариант
+	
 	$conf = Config::get('city');
 	if (!in_array($data['city'], $conf['list'])) {
 		$city = $conf['def'];
