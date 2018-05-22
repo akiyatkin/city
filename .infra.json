@@ -3,7 +3,7 @@
 	"dependencies":["controller","event"],
 	"js":"City.js",
 	"def":"Samara",
-	"list":["Samara","Toliatty"],
+	"list":["Samara","Tolyatti"],
 	"require":"infra.php",
 	"lang":{
     	"def":"ru",
