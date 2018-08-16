@@ -4,6 +4,6 @@
 		"infrajs/region":"~1"
 	},
 	"autoload": {
-		"psr-4": { "infrajs\\city\\": "/" }
+		"psr-4": { "akiyatkin\\city\\": "/" }
 	}
 }
