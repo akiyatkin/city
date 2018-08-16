@@ -1,9 +1,9 @@
 <?php
-namespace infrajs\city;
+namespace akiyatkin\city;
 use akiyatkin\boo\MemCache;
 use infrajs\load\Load;
 use infrajs\lang\Lang;
-use akiyatkin\ip\IP;
+use infrajs\ip\IP;
 use infrajs\config\Config;
 
 class City {

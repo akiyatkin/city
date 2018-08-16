@@ -5,6 +5,7 @@ use infrajs\lang\Lang;
 use infrajs\ip\IP;
 use infrajs\config\Config;
 use infrajs\event\Events;
+use akiyatkin\city\City;
 
 Env::add('city', function () {
 	//FRONT-функция

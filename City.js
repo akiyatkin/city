@@ -7,6 +7,7 @@ window.City = {
 	layer: {
 		"divs":{
 			"citydescr":{
+				"data":true,
 				"tpl":"~city.tpl"
 			},
 			"citychoicesel":{
