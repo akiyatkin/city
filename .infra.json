@@ -1,7 +1,7 @@
 {
 	"pub":["list"],
 	"dependencies":["controller","event"],
-	"js":"City.js",
+	"js":["City.js","infra.js"],
 	"def":"Samara",
 	"list":["Samara","Tolyatti"],
 	"require":"infra.php",

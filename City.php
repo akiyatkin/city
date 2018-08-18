@@ -7,14 +7,16 @@ use infrajs\ip\IP;
 use infrajs\config\Config;
 
 class City {
+	static public function read($ip, $lang = 'en') {
+		$data = IP::get($ip, $lang);
+		return $data['city'];
+	}
 	static public function get($ip = false){
-		$data = IP::get($ip, 'en');
+		$city = City::read($ip);
+		
 		$conf = Config::get('city');
-		if (!in_array($data['city'], $conf['list'])) {
-			$city = $conf['def'];
-		} else {
-			$city = $data['city'];	
-		}
+		if (!$city || !in_array($city, $conf['list'])) return $conf['def'];
+		
 		return $city;
 	}
 }
