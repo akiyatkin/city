@@ -7,7 +7,7 @@ use infrajs\ans\Ans;
 use infrajs\config\Config;
 use infrajs\ip\IP;
 
-Access::test(true);
+//Access::test(true);
 
 return Rest::get( function () {
 	echo 'Пример <a href="/-city/85.114.185.182">85.114.185.182</a>, <a href="/-city/true/ru">true</a>';	
