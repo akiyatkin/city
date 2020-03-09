@@ -2,8 +2,8 @@
 	"pub":["list"],
 	"dependencies":["controller","event"],
 	"js":["City.js","infra.js"],
-	"def":"Samara",
-	"list":["Samara","Tolyatti"],
+	"def":"Moscow",
+	"list":["Moscow"],
 	"require":"infra.php",
 	"lang":{
     	"def":"ru",
