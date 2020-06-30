@@ -1,7 +1,7 @@
 {
 	"name":"akiyatkin/city",
 	"require":{
-		"infrajs/region":"~1"
+		"infrajs/ans":"~1"
 	},
 	"autoload": {
 		"psr-4": { "akiyatkin\\city\\": "/" }

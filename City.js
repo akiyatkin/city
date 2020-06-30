@@ -1,4 +1,5 @@
-window.City = {
+import { Popup } from '/vendor/infrajs/popup/Popup.js'
+let City = {
 	lang: function (str, lang) {
 		if (typeof(str) == 'undefined') return Lang.name('cart');
 		return Lang.str('city', str, lang);
@@ -12,9 +13,7 @@ window.City = {
 		return data.city;
 	},
 	show: function() {
-		Event.one('Controller.onshow', function () {
-			Popup.open(City.layer);
-		});
+		Popup.open(City.layer);
 	},
 	layer: {
 		"divs":{
@@ -31,3 +30,4 @@ window.City = {
 		"tpl":"-city/city.tpl"
 	}
 }
+export { City }

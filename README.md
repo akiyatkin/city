@@ -3,15 +3,15 @@
 Работает на основе окружения пользователя [infrajs/env](https://github.com/infrajs/env). Город определяется автоматически с помощью [infrajs/ip](https://github.com/infrajs/ip). Если города нет в списке ```conf.city.list```, то используется город по умолчанию ```conf.city.def```.
 
 ```js
-Env.get().city;
+Env.get().city.ru;
 ```
 
 ```php
-Env::get()['city'];
+Env::get()['city']['ru'];
 ```
 
 ```tpl
-{Env.get().city}
+{Env.get().city.ru}
 ```
 
 ## Изменнеие города

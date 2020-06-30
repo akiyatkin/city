@@ -1,22 +1,48 @@
 <?php
+
 namespace akiyatkin\city;
+
 use akiyatkin\boo\MemCache;
 use infrajs\load\Load;
+use infrajs\sequence\Sequence;
 use infrajs\lang\Lang;
-use infrajs\ip\IP;
 use infrajs\config\Config;
 
-class City {
-	static public function read($ip, $lang = 'en') {
-		$data = IP::get($ip, $lang);
-		return $data['city'];
+class City
+{
+	public static $conf = array();
+	static public function read($ip = '')
+	{
+		$data = Load::loadJSON('-city/SxGeo/?ip=' . $ip);
+		return $data;
 	}
-	static public function get($ip = false){
-		$city = City::read($ip);
-		
-		$conf = Config::get('city');
-		if (!$city || !in_array($city, $conf['list'])) return $conf['def'];
-		
-		return $city;
+	static public function get($ip = null)
+	{
+		//Язык определяется по данным в $_SERVER в расширении lang
+
+		$data = City::read($ip);
+
+		$ans = false;
+		if (isset($data['city']['name_en']) && isset($data['city']['name_ru'])) {
+			$ans = [
+				'ip' => $ip,
+				'def' => false,
+				'ru' => $data['city']['name_ru'],
+				'en' => $data['city']['name_en']
+			];
+		}
+
+		$conf = City::$conf;
+		if (!$ans || ($conf['list'] && !in_array($ans['ru'], $conf['list']))) {
+
+			$ans = [
+				'ip' => $ip,
+				'def' => true,
+				'ru' => $conf['defru'],
+				'en' => $conf['defen']
+			];
+		}
+
+		return $ans;
 	}
 }

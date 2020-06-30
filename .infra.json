@@ -1,12 +1,12 @@
 {
 	"pub":["list"],
 	"dependencies":["controller","event"],
-	"js":["City.js","infra.js"],
-	"def":"Moscow",
-	"list":["Moscow"],
+	"conf":"akiyatkin\\city\\City",
+	"js2":["infra.js"],
 	"require":"infra.php",
-	"lang":{
-    	"def":"ru",
-    	"list":["en","ru"]
-    }
+	"update2":"update.php",
+
+	"defru":"Москва",
+	"defen":"Moscow",
+	"list":["Москва","Тольятти"]
 }

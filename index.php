@@ -4,21 +4,20 @@ use infrajs\rest\Rest;
 use infrajs\access\Access;
 use akiyatkin\city\City;
 use infrajs\ans\Ans;
+use infrajs\nostore\Nostore;
 use infrajs\config\Config;
 use infrajs\ip\IP;
 
 //Access::test(true);
 
-return Rest::get( function () {
-	echo 'Пример <a href="/-city/85.114.185.182">85.114.185.182</a>, <a href="/-city/true/ru">true</a>';	
-}, function($ip, $lang = 'en'){
-	if ($ip == 'true') $ip = null;
+return Rest::get( function ($ip = null) {
+	if (!$ip) Nostore::on();
 	$ans = array();
-	
-	$conf = Config::get('city');
-	$ans['city'] = City::read($ip, $lang);
-	$ans['conflist'] = $conf['list'];
-	$ans['confdef'] = $conf['def'];
-	$ans['ip'] = IP::get($ip, $lang);
+	$ans['read'] = City::read($ip);
+	$ans['get'] = City::get($ip);
+	return Ans::ans($ans);
+},'get', function ($get, $ip = null) {
+	if (!$ip) Nostore::on();
+	$ans = City::get($ip);
 	return Ans::ans($ans);
 });
