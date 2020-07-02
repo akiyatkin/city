@@ -12,6 +12,8 @@ CREATE TABLE IF NOT EXISTS `cities` (
     `okrug`	varchar(255)
 );
 
+TRUNCATE `cities`;
+
 INSERT INTO cities (`index`,`regiontype`,`region`,`city`,`timezone`,`okrug`)
 VALUES
     ('385200', 'Респ', 'Адыгея', 'Адыгейск', 'UTC+3', 'Южный'),
