@@ -10,7 +10,13 @@ Path::req("-city/SxGeo/SxGeo.php");
 //     SXGEO_FILE   (работа с файлом базы, режим по умолчанию); 
 //     SXGEO_BATCH (пакетная обработка, увеличивает скорость при обработке множества IP за раз)
 //     SXGEO_MEMORY (кэширование БД в памяти, еще увеличивает скорость пакетной обработки, но требует больше памяти)
-$SxGeo = new SxGeo(Path::theme('~SxGeoCity.dat'));
+
+$src = Path::theme('~SxGeoCity.dat');
+if (!$src) {
+    $ans = [];
+    return Ans::err($ans, 'Ошибка, нет данных');
+}
+$SxGeo = new SxGeo($src);
 //$SxGeo = new SxGeo('SxGeoCity.dat', SXGEO_BATCH | SXGEO_MEMORY); // Самый производительный режим, если нужно обработать много IP за раз
 
 
