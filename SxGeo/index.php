@@ -30,4 +30,4 @@ $data = $SxGeo->getCityFull($ip); // Вся информация о городе
 //var_export($SxGeo->get($ip));         // Краткая информация о городе или код страны (если используется база SxGeo Country)
 //var_export($SxGeo->about());          // Информация о базе данных
 $data['ip'] = $ip;
-return Ans::ans($data);
+return Ans::ret($data);
