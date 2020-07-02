@@ -9,9 +9,8 @@ use akiyatkin\city\City;
 
 Env::add('city', function ($data) {
 	//FRONT-функция
-	$ip = '62.106.100.30';
-	//$ip = null;
-	$get = City::get($ip);
+	//$ip = '62.106.100.30';
+	$get = City::get();
 	return $get['ru'];
 }, function ($city) {
 	$conf = Config::get('city');
