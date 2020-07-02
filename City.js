@@ -13,21 +13,24 @@ let City = {
 		return data.city;
 	},
 	show: function() {
-		Popup.open(City.layer);
+		if (!Config.get('city').list.length) {
+			Popup.open(City.layersearch)
+		} else {
+			Popup.open(City.layer)
+		}
+	},
+	layersearch: {
+		"parsedtpl":"{Env.getName()}",
+		"json":"-city/list",
+		"tplroot":"SEARCH",
+		"tpl":"-city/city.tpl"
 	},
 	layer: {
-		"divs":{
-			"citydescr":{
-				"data":true,
-				"tpl":"~city.tpl"
-			},
-			"citychoicesel":{
-				"tpl":"-city/choice.tpl",
-				"data":true
-			}
-		},
+		"parsedtpl":"{Env.getName()}",
+		"data":true,
 		"tplroot":"root",
 		"tpl":"-city/city.tpl"
 	}
 }
+window.City = City
 export { City }

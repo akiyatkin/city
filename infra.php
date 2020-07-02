@@ -15,7 +15,6 @@ Env::add('city', function ($data) {
 	return $get['ru'];
 }, function ($city) {
 	$conf = Config::get('city');
-	if (empty($city)) return false;
 	if (empty($conf['list'])) return true;
 	return in_array($city, $conf['list']);
 });

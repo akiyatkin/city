@@ -1,6 +1,9 @@
 
-IF NOT EXISTS CREATE TABLE cities
-(
+/* 
+    https://github.com/hflabs/city
+*/ 
+
+CREATE TABLE IF NOT EXISTS `cities` (
     `index`	varchar(300),
     `regiontype`	varchar(300),
     `region`	varchar(300),

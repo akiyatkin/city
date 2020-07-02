@@ -4,7 +4,7 @@
 	"conf":"akiyatkin\\city\\City",
 	"js2":["infra.js"],
 	"require":"infra.php",
-	"update2":"update.php",
+	"update":"update.php",
 
 	"defru":"Москва",
 	"defen":"Moscow",
