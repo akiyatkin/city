@@ -1,5 +1,5 @@
 // import { CDN } from '/vendor/akiyatkin/load/CDN.js'
-// import { DOM } from '/vendor/akiyatkin/load/DOM.js'
+import { DOM } from '/vendor/akiyatkin/load/DOM.js'
 // import { Env } from "/vendor/infrajs/env/Env.js"
 //import { City } from "/vendor/akiyatkin/city/City.js"
 
@@ -14,7 +14,7 @@ DOM.done('load', () => {
 		el.addEventListener('click', async event => {
 			event.preventDefault();
 			let { City } = await import('/vendor/akiyatkin/city/City.js')
-			City.show(Contacts.callback_layer)
+			City.show()
 		})
 	}
 })

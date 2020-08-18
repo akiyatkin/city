@@ -13,7 +13,7 @@ let City = {
 		return data.city;
 	},
 	show: function() {
-		if (!Config.get('city').list.length) {
+		if (!Config.get('city').listru.length) {
 			Popup.open(City.layersearch)
 		} else {
 			Popup.open(City.layer)

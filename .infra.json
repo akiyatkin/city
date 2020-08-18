@@ -1,5 +1,5 @@
 {
-	"pub":["list"],
+	"pub":["listru","listen"],
 	"dependencies":["controller","event"],
 	"conf":"akiyatkin\\city\\City",
 	"js2":["infra.js"],
@@ -8,5 +8,6 @@
 
 	"defru":"Москва",
 	"defen":"Moscow",
-	"list":["Москва","Тольятти"]
+	"listru":["Москва","Тольятти"],
+	"listen":[]
 }

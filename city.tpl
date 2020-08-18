@@ -10,7 +10,7 @@
 		</a>
 	</p>
 	<p>
-		Ваш город: <b>{Env.get().city}</b>
+		Ваш город: <b>{Env.get().city[Lang.name()]}</b>
 	</p>
 </div>
 {SEARCH:}
@@ -31,7 +31,7 @@
 		</a>
 	</p>
 	<p>
-		Ваш город: <b>{Env.get().city}</b>
+		Ваш город: <b>{Env.get().city[Lang.name()]}</b>
 	</p>
 	<script async type="module">
 		import { Crumb } from '/vendor/infrajs/controller/src/Crumb.js'
@@ -65,6 +65,5 @@
 {row:}{1} {0} {2}
 {respub:}{0} {1} {2}
 {btn:}
-<a href="?-env={Env.getName()}:city={.}" class="btn btn-{Env.get().city=.?:danger?:secondary}">{Lang.str(:city,.)}</a>
-{CITY:}<span class="a -city-str"
-	onclick="domready( function () { City.show() });">{Lang.str(:city,Env.get().city)}</span>
+<a href="?-env={Env.getName()}:city={.}" class="btn btn-{Env.get().city=.?:danger?:secondary}">{.}</a>
+{CITY:}<span class="a showCity">{Env.get().city[Lang.name()]}</span>
