@@ -4,13 +4,15 @@
 */ 
 
 CREATE TABLE IF NOT EXISTS `cities` (
+    `city_id` MEDIUMINT unsigned NOT NULL AUTO_INCREMENT,
     `index`	varchar(300),
     `regiontype`	varchar(300),
     `region`	varchar(300),
     `city`	varchar(300),
     `timezone`	varchar(300),
-    `okrug`	varchar(255)
-);
+    `okrug`	varchar(255),
+    PRIMARY KEY (`city_id`)
+) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1;
 
 TRUNCATE `cities`;
 

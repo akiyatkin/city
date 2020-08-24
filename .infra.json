@@ -1,13 +1,11 @@
 {
-	"pub":["listru","listen"],
+	"pub":["list","listen"],
 	"dependencies":["controller","event"],
 	"conf":"akiyatkin\\city\\City",
 	"js2":["infra.js"],
 	"require":"infra.php",
 	"update":"update.php",
-
-	"defru":"Москва",
-	"defen":"Moscow",
-	"listru":["Москва","Тольятти"],
+	"def_city_id":1,
+	"list":[1,2],
 	"listen":[]
 }

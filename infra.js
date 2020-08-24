@@ -1,5 +1,7 @@
 // import { CDN } from '/vendor/akiyatkin/load/CDN.js'
 import { DOM } from '/vendor/akiyatkin/load/DOM.js'
+import { Template } from '/vendor/infrajs/template/Template.js'
+import { City } from '/vendor/akiyatkin/city/City.js'
 // import { Env } from "/vendor/infrajs/env/Env.js"
 //import { City } from "/vendor/akiyatkin/city/City.js"
 
@@ -24,3 +26,10 @@ DOM.done('load', () => {
 // 	await CDN.fire('load','jquery')
 // 	$('.-city-str').html(city.ru)
 // });
+
+Template.scope['City'] = {}
+Template.scope['City']['lang'] = str => City.lang(str)
+Template.scope['City']['id'] = () => City.id()
+// Template.scope['City']['token'] = function () {
+// 	return User.token()
+// }

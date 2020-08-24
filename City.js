@@ -1,33 +1,32 @@
 import { Popup } from '/vendor/infrajs/popup/Popup.js'
+import { Config } from '/vendor/infrajs/config/Config.js'
+import { Load } from '/vendor/akiyatkin/load/Load.js'
+import { Lang } from '/vendor/infrajs/lang/Lang.js'
 let City = {
-	lang: function (str, lang) {
-		if (typeof(str) == 'undefined') return Lang.name('cart');
-		return Lang.str('city', str, lang);
+	lang: Lang.fn('city'),
+	id: () => Env.get().city_id,
+	get: async () => {
+		let lang = City.lang();
+		let city_id = City.id();
+		let src = '-city/api/get?city_id='+city_id+'&lang='+lang;
+		let city = await Load.fire('json',src);
+		return city;
 	},
-	get: function(lang){
-		if (!lang) lang = Lang.name();
-		
-		if (Env.get().city) return City.lang(Env.get().city, lang); //В окружении есть явно указанный город	
-		var data = Load.loadJSON('-city/true/'+lang);
-		if (!data.city) data.city = City.lang(data.conflist[0], lang);//Автоопределение не сработало
-		return data.city;
-	},
-	show: function() {
-		if (!Config.get('city').listru.length) {
+	show: () => {
+		if (!Config.get().city.list.length) {
 			Popup.open(City.layersearch)
 		} else {
 			Popup.open(City.layer)
 		}
 	},
 	layersearch: {
-		"parsedtpl":"{Env.getName()}",
+		"parsedtpl":"{City.lang()}{City.id()}",
 		"json":"-city/list",
 		"tplroot":"SEARCH",
 		"tpl":"-city/city.tpl"
 	},
 	layer: {
-		"parsedtpl":"{Env.getName()}",
-		"data":true,
+		"jsontpl":"-city/api/?city_id={City.id()}&lang={City.lang()}",
 		"tplroot":"root",
 		"tpl":"-city/city.tpl"
 	}

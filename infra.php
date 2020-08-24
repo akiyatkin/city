@@ -4,30 +4,41 @@ use infrajs\env\Env;
 use infrajs\lang\Lang;
 use infrajs\ip\IP;
 use infrajs\config\Config;
-use infrajs\event\Events;
+use infrajs\template\Template;
+use infrajs\event\Event;
 use infrajs\db\Db;
 use akiyatkin\city\City;
 
-Env::add('city', function () {
+Env::add('city_id', function () {
 	//FRONT-функция
 	//$ip = '62.106.100.30';
 	//$ip = null;
-	$get = City::get();
-	$ctr = ['en'=> $get['en'], 'ru'=> $get['ru'], ];
-	return $ctr;
-}, function ($ctr) {
+	$city = City::get();
+	if ($city) return $city['city_id'];
+	else return 0;
+}, function ($city_id) {
 	$conf = Config::get('city');
 	
 	//1 если есть нужные данные
-	if (empty($ctr['en']) || empty($ctr['ru'])) return false;
+	if ((int) $city_id != $city_id) return false;
 
 	//2 если есть список возможных городов, то город должен быть из этого списка. Достаточно совпадения из любого списка
-	if ($conf['listru']) return in_array($ctr['ru'], $conf['listru']);
+	if ($conf['list']) return in_array($city_id, $conf['list']);
 
 	//3 если указанный город есть в данных
-	$stmt = Db::stmt('SELECT city from cities where city = ?');
-	$stmt->execute(array($ctr['ru']));
-	$r = $stmt->fetchColumn();
-	if ($r) return true; 
-	
+	$city = City::getById($city_id);
+	if ($city) return true; 
+});
+
+Event::one('Controller.oninit', function () {
+	Template::$scope['City'] = array();
+	Template::$scope['City']['id'] = function () {
+		return Env::get()['city_id'];
+	};
+	Template::$scope['City']['lang'] = function ($stren = null) {
+		//Для контроллера функция
+		$lang = Lang::name('user');
+		if (is_null($stren)) return $lang;
+		return City::lang($lang, $stren);
+	};
 });

@@ -5,12 +5,12 @@
 		{Config.get().city.list::btn}
 	</p>
 	<p>
-		<a href="?-env={Env.getName()}:city" class="a {Env.getName()??:font-weight-bold}">
+		<a href="?-env={Env.getName()}:city_id" class="a {Env.getName()??:font-weight-bold}">
 			Определить автоматически
 		</a>
 	</p>
 	<p>
-		Ваш город: <b>{Env.get().city[Lang.name()]}</b>
+		Ваш город: <b>{data.city.name}</b>
 	</p>
 </div>
 {SEARCH:}
@@ -26,7 +26,7 @@
 		</form>
 	</p>
 	<p>
-		<a href="?-env={Env.getName()}:city" class="a {Env.getName()??:font-weight-bold}">
+		<a href="?-env={Env.getName()}:city_id" class="a {Env.getName()??:font-weight-bold}">
 			Определить автоматически
 		</a>
 	</p>
@@ -55,7 +55,7 @@
 				}
 			}
 			if (optionFound) {
-				Crumb.go('?-env=' + Env.getName() + ':city=' + input.value)
+				Crumb.go('?-env=' + Env.getName() + ':city_id=' + input.value)
 				Popup.close()
 			}
 		})
@@ -65,5 +65,5 @@
 {row:}{1} {0} {2}
 {respub:}{0} {1} {2}
 {btn:}
-<a href="?-env={Env.getName()}:city={.}" class="btn btn-{Env.get().city=.?:danger?:secondary}">{.}</a>
+<a href="?-env={Env.getName()}:city_id={.}" class="btn btn-{Env.get().city=.?:danger?:secondary}">{.}</a>
 {CITY:}<span class="a showCity">{Env.get().city[Lang.name()]}</span>

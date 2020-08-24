@@ -8,13 +8,23 @@ use infrajs\sequence\Sequence;
 use infrajs\lang\Lang;
 use infrajs\config\Config;
 
+use infrajs\lang\LangAns;
+use infrajs\cache\CacheOnce;
+
 class City
 {
+	public static $name = 'city';
+	use LangAns;
+	use CacheOnce;
 	public static $conf = array();
 	static public function read($ip = '')
 	{
 		$data = Load::loadJSON('-city/SxGeo/?ip=' . $ip);
 		return $data;
+	}
+	static public function getById($city_id)
+	{
+		return City::get();
 	}
 	static public function get($ip = null)
 	{
@@ -42,7 +52,8 @@ class City
 				'en' => $conf['defen']
 			];
 		}
-
+		$ans['city_id'] = 1;
+		$ans['name'] = 'Самарканд';
 		return $ans;
 	}
 }
