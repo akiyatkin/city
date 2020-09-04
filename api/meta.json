@@ -1,0 +1,39 @@
+{
+    "actions": {
+        "update-sql": {
+            "handlers": {
+                "post": true,
+                "nostore": true,
+                "debug": true
+            }
+        },
+        "update-load": {
+            "handlers": {
+                "post": true,
+                "nostore": true,
+                "debug": true
+            }
+        },
+        "update-list": {
+            "handlers": {
+                "nostore": true,
+                "debug": true
+            }
+        },
+        "countries": {
+            "handlers": {
+                "city":true
+            }
+        },
+        "cities": {
+            "handlers": {
+                "city":true
+            }
+        },
+        "get": {},
+        "search": {
+            "handlers": {
+            }
+        }
+    }
+}

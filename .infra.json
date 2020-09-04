@@ -2,10 +2,13 @@
 	"pub":["list","listen"],
 	"dependencies":["controller","event"],
 	"conf":"akiyatkin\\city\\City",
-	"js2":["infra.js"],
 	"require":"infra.php",
 	"update":"update.php",
-	"def_city_id":1,
-	"list":[1,2],
+	"lang":{
+		"def":"ru",
+		"list":["ru","en"]
+	},
+	"list":[],
+	"def_city_id":431,
 	"listen":[]
 }

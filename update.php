@@ -1,10 +1,8 @@
 <?php
 
-use infrajs\db\Db;
-use infrajs\path\Path;
 
-$db = &Db::pdo();
+use infrajs\load\Load;
+use infrajs\ans\Ans;
 
-$filesql = Path::theme('-city/cities.sql');
-$sql = file_get_contents($filesql);
-$db->exec($sql);
+$ans = Load::loadJSON('-city/api/update-sql?submit=1');
+if (!$ans['result']) die($ans['msg']);

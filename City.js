@@ -12,22 +12,29 @@ let City = {
 		let city = await Load.fire('json',src);
 		return city;
 	},
-	show: () => {
-		if (!Config.get().city.list.length) {
-			Popup.open(City.layersearch)
-		} else {
-			Popup.open(City.layer)
-		}
+	choice: () => {
+		Popup.open(City.layerchoice)
+		return new Promise(resolve => {
+			City.layerchoice.config.resolve = resolve
+		})
 	},
-	layersearch: {
-		"parsedtpl":"{City.lang()}{City.id()}",
-		"json":"-city/list",
-		"tplroot":"SEARCH",
+	layerchoice: {
+		"jsontpl":"-city/api/countries?city_id={City.id()}&lang={City.lang()}",
+		"config":{
+			"country_id":false
+		},
+		"tplroottpl":"CHOICE",
 		"tpl":"-city/city.tpl"
 	},
+	show: () => {
+		Popup.open(City.layer)
+	},
 	layer: {
-		"jsontpl":"-city/api/?city_id={City.id()}&lang={City.lang()}",
-		"tplroot":"root",
+		"jsontpl":"-city/api/countries?city_id={City.id()}&lang={City.lang()}",
+		"config":{
+			"country_id":false
+		},
+		"tplroottpl":"POPUP",
 		"tpl":"-city/city.tpl"
 	}
 }
