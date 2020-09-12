@@ -2,6 +2,7 @@ import { Popup } from '/vendor/infrajs/popup/Popup.js'
 import { Config } from '/vendor/infrajs/config/Config.js'
 import { Load } from '/vendor/akiyatkin/load/Load.js'
 import { Lang } from '/vendor/infrajs/lang/Lang.js'
+import { Layer } from '/vendor/infrajs/controller/src/Layer.js'
 let City = {
 	lang: Lang.fn('city'),
 	id: () => Env.get().city_id,
@@ -14,7 +15,7 @@ let City = {
 	},
 	choice: () => {
 		Popup.open(City.layerchoice)
-		return new Promise(resolve => {
+		return new Promise((resolve) => {
 			City.layerchoice.config.resolve = resolve
 		})
 	},
@@ -38,5 +39,9 @@ let City = {
 		"tpl":"-city/city.tpl"
 	}
 }
+Layer.syne('hide', layer => {
+	if (layer !== City.layerchoice) return
+	City.layerchoice.config.resolve(null)
+})
 window.City = City
 export { City }

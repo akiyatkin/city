@@ -36,13 +36,22 @@ class City
 			if ($city) {
 				
 				$city['city'] = explode(',', $city['name'])[0];
-				$city['index'] = Db::col('SELECT `index` from city_indexes where city_id = :city_id', [
+				$city['zip'] = Db::col('SELECT `index` from city_indexes where city_id = :city_id', [
 					':city_id' => $city_id
 				]);
 				unset($city['name']);
 			}
 			return $city;
 		});
+	}
+	
+	static public function getIndexes($city_id) {
+		$sql = "SELECT `index` FROM city_indexes WHERE city_id = :city_id
+		order by `index` ASC
+		";
+		return Db::colAll($sql,[
+			':city_id' => $city_id
+		]);
 	}
 	static public function getCountryById($country_id, $lang) {
 		$colname = ($lang == 'ru') ? 'CountryName' : 'EngCountryName';

@@ -108,50 +108,52 @@
 		
 		let orightml = datalist.innerHTML
 		let city_id = City.id()
-		let work = false;
-		let check = () => {
+		let worksrc = null
+
+		let check = async () => {
 			
 			let n = select.options.selectedIndex
 			let country_id = select.options[n].dataset.country_id
 			
 			let value = input.value
-			let src = '-city/api/search?country_id='+country_id+'&lang='+Lang.name()+'&val='+value;
-			work = src;
-			Load.fire('json', src).then(ans => {
-				if (work != src) return
-				let removes = []
-				for (let opt of datalist.options) {
-					let finded = false
-					for (let city of ans.cities) {
-						if (opt.dataset.city_id == city.city_id) {
-							finded = true;
-							break;
-						}
-					}
+			let group = '-city/api/search?country_id='+country_id+'&lang='+Lang.name()
+			let src = group + '&val='+value
+			let ans = await Load.chil('json', src, group)
+			if (worksrc == src) return
+			worksrc = src
 
-					if (!finded) removes.push(opt)
-				}
-				for (let opt of removes) opt.remove()
-
-				let cities = []
+			let removes = []
+			for (let opt of datalist.options) {
+				let finded = false
 				for (let city of ans.cities) {
-					let finded = false
-					for (let opt of datalist.options) {
-						if (opt.dataset.city_id == city.city_id) {
-							finded = true;
-							break;
-						}
+					if (opt.dataset.city_id == city.city_id) {
+						finded = true;
+						break;
 					}
-					if (!finded) cities.push(city)
 				}
-				for (let city of cities) {
-					let option = document.createElement('option');
-					option.innerText = city.region
-					option.value = city.name
-					option.dataset.city_id = city.city_id
-					datalist.append(option)
+
+				if (!finded) removes.push(opt)
+			}
+			for (let opt of removes) opt.remove()
+
+			let cities = []
+			for (let city of ans.cities) {
+				let finded = false
+				for (let opt of datalist.options) {
+					if (opt.dataset.city_id == city.city_id) {
+						finded = true;
+						break;
+					}
 				}
-			})
+				if (!finded) cities.push(city)
+			}
+			for (let city of cities) {
+				let option = document.createElement('option');
+				option.innerText = city.region
+				option.value = city.name
+				option.dataset.city_id = city.city_id
+				datalist.append(option)
+			}
 		}
 		check()
 		input.addEventListener('keyup', check)
