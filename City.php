@@ -23,6 +23,12 @@ class City
 		$data = Load::loadJSON('-city/SxGeo/?ip=' . $ip);
 		return $data;
 	}
+	static public function getIdByName($city_name, $lang) {
+		$colname = ($lang == 'ru') ? 'CityName' : 'EngName';
+		return Db::col("SELECT city_id FROM city_cities WHERE $colname like :$colname LIMIT 0,1", [
+			":$colname" => $city_name.'%'
+		]);
+	}
 	static public function getById($city_id, $lang)
 	{
 		return static::once('getById', [$city_id, $lang], function ($city_id, $lang) {
@@ -30,9 +36,11 @@ class City
 			$colname = ($lang == 'ru') ? 'CityName' : 'EngName';
 			$colobl = ($lang == 'ru') ? 'OblName' : 'EngOblName';
 			$sql = "SELECT city_id, country_id, $colname as name FROM city_cities where city_id = :city_id";
+
 			$city = Db::fetch($sql, [
 				':city_id' => $city_id
 			]);
+			
 			if ($city) {
 				
 				$city['city'] = explode(',', $city['name'])[0];
@@ -78,7 +86,7 @@ class City
 
 		$city_id = Db::col("SELECT city_id FROM city_cities WHERE country_id = :country_id and CityName like :CityName", [
 			':country_id' => $country_id,
-			':CityName' => '%'.$data['city']['name_ru'].'%'
+			':CityName' => $data['city']['name_ru'].'%'
 		]);
 		if (!$city_id) return City::$conf['def_city_id'];
 		return $city_id;
