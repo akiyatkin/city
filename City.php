@@ -35,7 +35,10 @@ class City
 
 			$colname = ($lang == 'ru') ? 'CityName' : 'EngName';
 			$colobl = ($lang == 'ru') ? 'OblName' : 'EngOblName';
-			$sql = "SELECT city_id, country_id, $colname as name FROM city_cities where city_id = :city_id";
+			$colcnr = ($lang == 'ru') ? 'CountryName' : 'EngCountryName';
+			$sql = "SELECT ci.city_id, ci.country_id, ci.$colname as name, ct.$colcnr as country FROM city_cities ci
+			left join city_countries ct on ct.country_id = ci.country_id
+			where city_id = :city_id";
 
 			$city = Db::fetch($sql, [
 				':city_id' => $city_id
