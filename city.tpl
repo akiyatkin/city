@@ -1,9 +1,9 @@
 {optcountry:}<option {config.country_id?(config.country_id=country_id?:selected)?(data.city.country_id=country_id?:selected)} data-country_id="{country_id}">{name}</option>
 {CHOICE:}
 	<h1>{City.lang(:Выберите город)}</h1>
-	<p>
+	<!-- <p>
 		<span class="a">{City.lang(:Определить автоматически)}</a>
-	</p>
+	</p> -->
 	{:selects}
 	<script type="module" async>
 		import { Crumb } from '/vendor/infrajs/controller/src/Crumb.js'
@@ -13,11 +13,11 @@
 		let datalist = input.list
 		let layer = Controller.ids[{id}]
 		let div = document.getElementById('{div}')
-		let a = div.getElementsByClassName('a')[0]
-		a.addEventListener('click', () => {
-			layer.config.resolve(false)
-			Popup.close()
-		})
+		// let a = div.getElementsByClassName('a')[0]
+		// a.addEventListener('click', () => {
+		// 	layer.config.resolve(false)
+		// 	Popup.close()
+		// })
 		input.addEventListener('change', () => {
 			let city_id = false;
 			for (let j = 0; j < datalist.options.length; j++) {
