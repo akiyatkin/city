@@ -76,6 +76,7 @@ class City
 		//Язык определяется по данным в $_SERVER в расширении lang
 
 		$data = City::read($ip);
+
 		if (empty($data['country']['name_ru'])) return City::$conf['def_city_id'];
 		$country_id = Db::col("SELECT country_id FROM city_countries WHERE CountryName = :CountryName", [
 			'CountryName' => $data['country']['name_ru']
@@ -86,11 +87,14 @@ class City
 			]);
 		}
 		if (!$country_id) return City::$conf['def_city_id'];
-
-		$city_id = Db::col("SELECT city_id FROM city_cities WHERE country_id = :country_id and CityName like :CityName", [
+		
+		$name_ru = $data['city']['name_ru'].'%';
+		
+		$city_id = Db::col("SELECT city_id FROM city_cities WHERE country_id = :country_id and CityName like :CityName order by city_id", [
 			':country_id' => $country_id,
-			':CityName' => $data['city']['name_ru'].'%'
+			':CityName' => $name_ru
 		]);
+
 		if (!$city_id) return City::$conf['def_city_id'];
 		return $city_id;
 	}
