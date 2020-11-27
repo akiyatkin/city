@@ -17,6 +17,8 @@ if ($action == 'countries') {
     return City::ret($ans);
 } else if ($action == 'search') {
     $val = Ans::REQ('val','string');
+    $r = explode(' ', $val);
+    $val = $r[0];
     $country_id = Ans::REQ('country_id', 'int');
     if (!$country_id) return City::fail($ans, $lang, 'country_id.a4');
     $country = City::getCountryById($country_id, $lang);

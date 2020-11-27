@@ -9,23 +9,24 @@
 		import { Crumb } from '/vendor/infrajs/controller/src/Crumb.js'
 		import { Popup } from '/vendor/infrajs/popup/Popup.js'
 		
-		let input = document.getElementById('cityinput')
-		let datalist = input.list
-		let layer = Controller.ids[{id}]
-		let div = document.getElementById('{div}')
-		// let a = div.getElementsByClassName('a')[0]
-		// a.addEventListener('click', () => {
-		// 	layer.config.resolve(false)
-		// 	Popup.close()
-		// })
-		input.addEventListener('change', () => {
-			let city_id = false;
+		const input = document.getElementById('cityinput')
+		const datalist = input.list
+		const layer = Controller.ids[{id}]
+		const div = document.getElementById('{div}')
+		
+		const search = (value) => {
+			let city_id = false
 			for (let j = 0; j < datalist.options.length; j++) {
-				if (input.value == datalist.options[j].value) {
-					city_id = datalist.options[j].dataset.city_id;
-					break;
+				if (value == datalist.options[j].value) {
+					if (city_id) return false
+					city_id = datalist.options[j].dataset.city_id
 				}
 			}
+			return city_id
+		}
+
+		input.addEventListener('change', () => {
+			const city_id = search(input.value)
 			if (city_id) {
 				layer.config.resolve(city_id)
 				Popup.close()
@@ -44,24 +45,43 @@
 		import { Crumb } from '/vendor/infrajs/controller/src/Crumb.js'
 		import { Popup } from '/vendor/infrajs/popup/Popup.js'
 		
-		let input = document.getElementById('cityinput')
-		let datalist = input.list
-		let div = document.getElementById('{div}')
-		let a = div.getElementsByClassName('a')[0]
+		const input = document.getElementById('cityinput')
+		const datalist = input.list
+		const div = document.getElementById('{div}')
+		const a = div.getElementsByClassName('a')[0]
 		a.addEventListener('click', () => Popup.close())
-		input.addEventListener('change', () => {
-			let city_id = false;
+		const search = (value) => {
+			let city_id = false
 			for (let j = 0; j < datalist.options.length; j++) {
-				if (input.value == datalist.options[j].value) {
-					city_id = datalist.options[j].dataset.city_id;
-					break;
+				if (value == datalist.options[j].value) {
+					if (city_id) return false
+					city_id = datalist.options[j].dataset.city_id
 				}
 			}
+			return city_id
+		}
+
+		input.addEventListener('input', () => {
+			const city_id = search(input.value)
 			if (city_id) {
 				Crumb.go('?-env=' + Env.getName() + ':city_id=' + city_id, false)
 				Popup.close()
 			}
 		})
+		// input.addEventListener('keyup', () => {
+		// 	const city_id = search(input.value)
+		// 	if (city_id && datalist.options.length == 1) {
+		// 		Crumb.go('?-env=' + Env.getName() + ':city_id=' + city_id, false)
+		// 		Popup.close()
+		// 	}
+		// })
+		// input.addEventListener('change', () => {
+		// 	const city_id = search(input.value)
+		// 	if (city_id) {
+		// 		Crumb.go('?-env=' + Env.getName() + ':city_id=' + city_id, false)
+		// 		Popup.close()
+		// 	}
+		// })
 	</script>	
 {opt:}
 	<option data-city_id="{city_id}" value="{name}">{region}</option>
@@ -149,11 +169,21 @@
 			}
 			for (let city of cities) {
 				let option = document.createElement('option');
-				option.innerText = city.region
-				option.value = city.name
+				if (city.region == city.name) {
+					option.innerText = city.name
+				} else {
+					option.innerText = city.name + ' ' + city.region
+				}
+				
+				// option.value = city.name
 				option.dataset.city_id = city.city_id
 				datalist.append(option)
+				//console.log(city.name)
 			}
+			// if (datalist.options.length == 1) {
+			// 	input.value = datalist.options[0].value
+			// 	console.log('asdf')
+			// }
 		}
 		check()
 		input.addEventListener('keyup', check)
