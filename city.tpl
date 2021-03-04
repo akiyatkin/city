@@ -25,9 +25,10 @@
 			return city_id
 		}
 
-		input.addEventListener('change', () => {
+		input.addEventListener('input', () => {
 			const city_id = search(input.value)
 			if (city_id) {
+				input.blur()
 				layer.config.resolve(city_id)
 				Popup.close()
 			}
@@ -64,6 +65,8 @@
 		input.addEventListener('input', () => {
 			const city_id = search(input.value)
 			if (city_id) {
+				input.blur()
+				console.log('blur')
 				Crumb.go('?-env=' + Env.getName() + ':city_id=' + city_id, false)
 				Popup.close()
 			}
