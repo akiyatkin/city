@@ -33,6 +33,14 @@
 				Popup.close()
 			}
 		})
+		input.form.addEventListener('submit', async e => {
+			e.preventDefault()
+			let city_id = search(input.value)
+			if (!city_id) city_id = (await User.get('whoami')).user.city_id
+			input.blur()
+			layer.config.resolve(city_id)
+			Popup.close()
+		})
 	</script>
 {POPUP:}
 	<h1>{City.lang(:Выберите город)}</h1>
@@ -66,11 +74,11 @@
 			const city_id = search(input.value)
 			if (city_id) {
 				input.blur()
-				console.log('blur')
 				Crumb.go('?-env=' + Env.getName() + ':city_id=' + city_id, false)
 				Popup.close()
 			}
 		})
+		
 		// input.addEventListener('keyup', () => {
 		// 	const city_id = search(input.value)
 		// 	if (city_id && datalist.options.length == 1) {
@@ -112,15 +120,16 @@
 		import { Env } from "/vendor/infrajs/env/Env.js"
 		import { Load } from "/vendor/akiyatkin/load/Load.js"
 		
-		let layer = Controller.ids[{id}]
-		let div = document.getElementById('{div}')
+		const layer = Controller.ids[{id}]
+		
+		const div = document.getElementById('{div}')
 		// let a = div.getElementsByClassName('a')[0]
 		// a.addEventListener('click', () => {
 		// 	Popup.close()
 		// })
-		let input = document.getElementById('cityinput')
-		let datalist = input.list
-		let select = document.getElementById('countryinput')
+		const input = document.getElementById('cityinput')
+		const datalist = input.list
+		const select = document.getElementById('countryinput')
 		select.addEventListener('change', () => {
 			let n = select.options.selectedIndex
 			let country_id = select.options[n].dataset.country_id
@@ -191,4 +200,5 @@
 		check()
 		input.addEventListener('keyup', check)
 		input.addEventListener('click', check)
+
 	</script>
