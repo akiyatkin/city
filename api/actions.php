@@ -73,6 +73,7 @@ if ($action == 'countries') {
 
     return City::ret($ans);
 } else if ($action == 'update-load') {
+    $name = Ans::REQ('name');
     $files = FS::scandir($dir, function ($file) {
         $ext = Path::getExt($file);
         if ($ext !== 'xls') return false;
@@ -82,9 +83,22 @@ if ($action == 'countries') {
     Db::exec('TRUNCATE city_indexes');
 
     foreach ($files as $file) {
+        if ($name && $name!=$file) continue;
         $data = Xlsx::get($dir . $file);
         $rows = $data['childs'][0]['data'];
-        foreach ($rows as $row) {
+        /*
+            38000 
+            1 сек только города
+        */
+        $sqlcity = 'INSERT IGNORE INTO city_cities (city_id, FullName, CityName, Center, OblName, EngOblName, EngName, EngFullName, country_id) 
+                VALUES(:city_id, :FullName, :CityName, :Center, :OblName, :EngOblName, :EngName, :EngFullName, :country_id)';
+        $sqlindex = 'INSERT INTO city_indexes (city_id, `index`) 
+                        VALUES(:city_id, :index)';
+        $countries = [];
+        foreach ($rows as $k => $row) {
+            //$start = 3000;
+            //$count = 1000;
+            //if ($k < $start) continue;
             if ($row['CityName'] === "1") continue;
 
             if (in_array($row['CityName'], [
@@ -96,18 +110,19 @@ if ($action == 'countries') {
             
             if (City::$conf['def_city_id'] == $row['ID']) $row['Center'] = 1;
 
-            $sql = 'INSERT IGNORE INTO city_countries (country_id, CountryName, EngCountryName) 
-			        VALUES(:country_id, :CountryName, :EngCountryName)';
+            
+            if (empty($countries[$row['CountryCode']])) {
+                $countries[$row['CountryCode']] = true;
+                $sql = 'INSERT IGNORE INTO city_countries (country_id, CountryName, EngCountryName) 
+                    VALUES(:country_id, :CountryName, :EngCountryName)';
+                Db::exec($sql, [
+                    ':country_id' => $row['CountryCode'],
+                    ':CountryName' => $row['CountryName'],
+                    ':EngCountryName' => $row['EngCountryName']
+                ]);    
+            }
 
-            Db::exec($sql, [
-                ':country_id' => $row['CountryCode'],
-                ':CountryName' => $row['CountryName'],
-                ':EngCountryName' => $row['EngCountryName']
-            ]);
-
-            $sql = 'INSERT IGNORE INTO city_cities (city_id, FullName, CityName, Center, OblName, EngOblName, EngName, EngFullName, country_id) 
-                    VALUES(:city_id, :FullName, :CityName, :Center, :OblName, :EngOblName, :EngName, :EngFullName, :country_id)';
-            Db::exec($sql, [
+            Db::exec($sqlcity, [
                 ':city_id' => $row['ID'],
                 ':OblName' => $row['OblName'] ?? '',
                 ':EngOblName' => $row['EngOblName'] ?? '',
@@ -119,19 +134,20 @@ if ($action == 'countries') {
                 ':country_id' => $row['CountryCode']
             ]);
 
+
             if (isset($row['PostCodeList'])) {
                 //Индекс может быть для двух городов 1.
                 $indexes = explode(',', $row['PostCodeList']);
-                $sql = 'INSERT INTO city_indexes (city_id, `index`) 
-                        VALUES(:city_id, :index)';
+                
                 foreach ($indexes as $index) {
                     if ($index == '000001') continue;
-                    $r = Db::exec($sql, [
+                    $r = Db::exec($sqlindex, [
                         ':city_id' => $row['ID'],
                         ':index' => $index
                     ]);
                 }
             }
+            //if ($k >= $start + $count) exit;
         }
     }
 
