@@ -15,7 +15,7 @@ DOM.done('load', () => {
 		ws.add(el)
 		el.addEventListener('click', async event => {
 			event.preventDefault();
-			let { City } = await import('/vendor/akiyatkin/city/City.js')
+			const { City } = await import('/vendor/akiyatkin/city/City.js')
 			City.show()
 		})
 	}
