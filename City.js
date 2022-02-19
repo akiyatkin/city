@@ -1,4 +1,3 @@
-import { Popup } from '/vendor/infrajs/popup/Popup.js'
 import { Config } from '/vendor/infrajs/config/Config.js'
 import { Load } from '/vendor/akiyatkin/load/Load.js'
 import { Lang } from '/vendor/infrajs/lang/Lang.js'
@@ -13,7 +12,8 @@ let City = {
 		let city = await Load.fire('json',src);
 		return city;
 	},
-	choice: () => {
+	choice: async () => {
+		const { Popup } = await import('/vendor/infrajs/popup/Popup.js')
 		Popup.open(City.layerchoice)
 		return new Promise((resolve) => {
 			City.layerchoice.config.resolve = resolve
@@ -27,7 +27,8 @@ let City = {
 		"tplroottpl":"CHOICE",
 		"tpl":"-city/city.tpl"
 	},
-	show: () => {
+	show: async () => {
+		const { Popup } = await import('/vendor/infrajs/popup/Popup.js')
 		Popup.open(City.layer)
 	},
 	layer: {
