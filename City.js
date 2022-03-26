@@ -2,7 +2,9 @@ import { Config } from '/vendor/infrajs/config/Config.js'
 import { Load } from '/vendor/akiyatkin/load/Load.js'
 import { Lang } from '/vendor/infrajs/lang/Lang.js'
 import { Layer } from '/vendor/infrajs/controller/src/Layer.js'
-let City = {
+import { Env } from '/vendor/infrajs/env/Env.js'
+
+const City = {
 	lang: Lang.fn('city'),
 	id: () => Env.get().city_id,
 	get: async () => {
@@ -44,5 +46,5 @@ Layer.syne('hide', layer => {
 	if (layer !== City.layerchoice) return
 	City.layerchoice.config.resolve(null)
 })
-window.City = City
+
 export { City }
