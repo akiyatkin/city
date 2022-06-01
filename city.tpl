@@ -119,6 +119,7 @@
 		import { Popup } from '/vendor/infrajs/popup/Popup.js'
 		import { Env } from "/vendor/infrajs/env/Env.js"
 		import { Load } from "/vendor/akiyatkin/load/Load.js"
+		import { City } from "/vendor/akiyatkin/city/City.js"
 		
 		const layer = Controller.ids[{id}]
 		
