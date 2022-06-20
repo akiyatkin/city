@@ -53,6 +53,7 @@
 	<script type="module" async>
 		import { Crumb } from '/vendor/infrajs/controller/src/Crumb.js'
 		import { Popup } from '/vendor/infrajs/popup/Popup.js'
+		import { Env } from "/vendor/infrajs/env/Env.js"
 		
 		const input = document.getElementById('cityinput')
 		const datalist = input.list

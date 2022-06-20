@@ -4,7 +4,7 @@ import { Lang } from '/vendor/infrajs/lang/Lang.js'
 import { Layer } from '/vendor/infrajs/controller/src/Layer.js'
 import { Env } from '/vendor/infrajs/env/Env.js'
 
-const City = {
+export const City = {
 	lang: Lang.fn('city'),
 	id: () => Env.get().city_id,
 	get: async () => {
@@ -46,5 +46,3 @@ Layer.syne('hide', layer => {
 	if (layer !== City.layerchoice) return
 	City.layerchoice.config.resolve(null)
 })
-
-export { City }
